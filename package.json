@@ -1,0 +1,27 @@
+{
+  "name": "aws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "prisma": "^5.12.1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.550.0",
+    "@mermaid-js/mermaid-cli": "10.8.0",
+    "@prisma/client": "^5.12.1",
+    "aws-sdk": "^2.1594.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "puppeteer": "^22.6.2"
+  },
+  "type": "module"
+}

@@ -1,3 +1,3 @@
-To run the program: 
-   npm install
-   npm run start
+To run the program: <br />
+&nbsp;&nbsp;&nbsp;&nbsp;npm install <br />
+&nbsp;&nbsp;&nbsp;&nbsp;npm run start

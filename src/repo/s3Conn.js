@@ -53,8 +53,9 @@ class Storage {
         const data = await this.s3Client.send(command);
         return new Promise(async (resolve, reject) => {
             const body = data.Body;
+            const filePath = "./src/resources/" + params.Key;
             if (body instanceof Readable) {
-              const writeStream = createWriteStream(params.Key);
+              const writeStream = createWriteStream(filePath);
               body
                 .pipe(writeStream)
                 .on("error", (err) => reject(err))

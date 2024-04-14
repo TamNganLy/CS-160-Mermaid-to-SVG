@@ -8,12 +8,14 @@ const getMermaid = async(req, res) => {
 
     try {
         const mermaidFileName = await mermaidGet.get(articleId);
-        const svgFileName = "outputFile.svg";
+        const svgFileName = "./src/resources/outputFile.svg";
         await mermaidToSvg(mermaidFileName, svgFileName);
         res.status(200).sendFile(svgFileName, { root: '.' });
+        await mermaidGet.deleteFromDisk(mermaidFileName);
+        await mermaidGet.deleteFromDisk(svgFileName);
 
     } catch (err) {
-        console.error(err.message);
+        console.error("Something went wrong. Try later!");
     }
 
     

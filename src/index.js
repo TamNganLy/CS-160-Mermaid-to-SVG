@@ -1,5 +1,5 @@
 import express from 'express';
-import router from './src/router/mermaidRouter.js';
+import router from './router/mermaidRouter.js';
 import cors from 'cors';
 
 const app = express();

@@ -1,6 +1,8 @@
 import Storage from '../repo/s3Conn.js';
 import MermaidDb from '../repo/dbConn.js';
 import { unlink } from 'fs/promises';
+import { Readable } from "node:stream";
+import { createWriteStream } from 'node:fs';
 
 class MermaidGet {
     storage = Storage.getInstance();
@@ -25,11 +27,28 @@ class MermaidGet {
         await unlink(filePath);
     }
 
+    async savetoDisk(data, storageDiagramName) {
+        return new Promise(async (resolve, reject) => {
+            const body = data.Body;
+            const filePath = "./src/resources/" + storageDiagramName;
+            if (body instanceof Readable) {
+              const writeStream = createWriteStream(filePath);
+              body
+                .pipe(writeStream)
+                .on("error", (err) => reject(err))
+                .on("close", () => resolve(filePath));
+            } else {
+                resolve(false);
+            }
+        });
+    }
+
     async get(articleId) {
         const diagram = await this.loadDiagramFromDb(articleId);
         const storageDiagramName = this.loadStorageDiagramName(diagram);
-        const finish = await this.getDiagramFromStorage(storageDiagramName);
-        return "./src/resources/" + storageDiagramName;
+        const mermaidStream = await this.getDiagramFromStorage(storageDiagramName);
+        const filePath = await this.savetoDisk(mermaidStream, storageDiagramName);
+        return filePath;
     }
 }
 

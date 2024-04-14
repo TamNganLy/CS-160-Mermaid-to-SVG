@@ -1,6 +1,4 @@
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-import { createWriteStream } from 'node:fs';
-import { Readable } from "node:stream";
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -51,20 +49,8 @@ class Storage {
         const command = new GetObjectCommand(params);
 
         const data = await this.s3Client.send(command);
-        return new Promise(async (resolve, reject) => {
-            const body = data.Body;
-            const filePath = "./src/resources/" + params.Key;
-            if (body instanceof Readable) {
-              const writeStream = createWriteStream(filePath);
-              body
-                .pipe(writeStream)
-                .on("error", (err) => reject(err))
-                .on("close", () => resolve(true));
-            } else {
-                resolve(false);
-            }
-        });
 
+        return data;
     }
 }
 

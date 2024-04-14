@@ -23,12 +23,6 @@ class MermaidDb {
         });
         return diagram;
     }
-
-    async getArticles(limit = 10) {
-        return await this.db.articles.findMany({
-            take: limit
-        });
-    }
 }
 
 export default MermaidDb;

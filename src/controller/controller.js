@@ -16,7 +16,7 @@ const getMermaid = async(req, res) => {
 
     } catch (err) {
         console.error("Something went wrong. Try later!");
-        // console.error(err.message);
+        res.status(500).send("Something went wrong. Try later!");
     }  
 }
 

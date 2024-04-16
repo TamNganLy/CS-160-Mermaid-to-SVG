@@ -24,8 +24,8 @@ class Storage {
     }
 
     _loadEnvBucketConfig() {
-        const BUCKET_REGION_ENV_KEY = "AWS_BUCKET_REGION";
-        const BUCKETNAME_ENV_KEY = "AWS_BUCKET_NAME";
+        const BUCKET_REGION_ENV_KEY = "AWS_DIAGRAM_BUCKET_REGION";
+        const BUCKETNAME_ENV_KEY = "AWS_DIAGRAM_BUCKET_NAME";
 
         const envBucketRegion  = process.env[BUCKET_REGION_ENV_KEY];
         const envBucketName = process.env[BUCKETNAME_ENV_KEY];

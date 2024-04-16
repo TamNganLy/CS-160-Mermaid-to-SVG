@@ -3,6 +3,8 @@ import MermaidDb from '../repo/dbConn.js';
 import { unlink } from 'fs/promises';
 import { Readable } from "node:stream";
 import { createWriteStream } from 'node:fs';
+import { fileURLToPath } from "url";
+import path from "path";
 
 class MermaidGet {
     storage = Storage.getInstance();
@@ -27,10 +29,18 @@ class MermaidGet {
         await unlink(filePath);
     }
 
-    async savetoDisk(data, storageDiagramUUID) {
+    getTempMermaidFilePath(articleId) {
+        const currentFilePath = fileURLToPath(import.meta.url);
+        const currentFolder = path.dirname(currentFilePath);
+        const tempStoragePath = path.resolve(currentFolder, '../resources');
+        return path.join(tempStoragePath, articleId + ".mmd");
+      }
+
+    async savetoDisk(data, articleId) {
         return new Promise(async (resolve, reject) => {
             const body = data.Body;
-            const filePath = "./src/resources/" + storageDiagramUUID;
+            // const filePath = "./src/resources/" + storageDiagramUUID;
+            const filePath = await this.getTempMermaidFilePath(articleId);
             if (body instanceof Readable) {
               const writeStream = createWriteStream(filePath);
               body

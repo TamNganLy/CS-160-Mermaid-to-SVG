@@ -8,15 +8,14 @@ const getMermaid = async(req, res) => {
 
     try {
         const mermaidFileName = await mermaidGet.get(articleId);
-        const svgFileName = "./src/resources/outputFile.svg";
-        await mermaidToSvg(mermaidFileName, svgFileName);
-        res.status(200).sendFile(svgFileName, { root: '.' });
+        const svgFileName = await mermaidToSvg(mermaidFileName, articleId);
+        res.status(200).sendFile(svgFileName);
         await mermaidGet.deleteFromDisk(mermaidFileName);
         await mermaidGet.deleteFromDisk(svgFileName);
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("Something went wrong. Try later!");
+        res.status(500).send("Internal Server Error");
     }  
 }
 

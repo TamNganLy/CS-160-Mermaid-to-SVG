@@ -15,7 +15,7 @@ const getMermaid = async(req, res) => {
         await mermaidGet.deleteFromDisk(svgFileName);
 
     } catch (err) {
-        console.error("Something went wrong. Try later!");
+        console.error(err);
         res.status(500).send("Something went wrong. Try later!");
     }  
 }

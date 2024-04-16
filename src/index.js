@@ -3,7 +3,7 @@ import router from './router/mermaidRouter.js';
 import cors from 'cors';
 
 const app = express();
-const PORT = 8080;
+const PORT = 3500;
 
 const MERMAID_API_ENDPOINT = 'mermaid';
 const CORS_OPTIONS = {

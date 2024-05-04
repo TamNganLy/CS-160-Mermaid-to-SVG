@@ -1,11 +1,10 @@
-import { PrismaClient } from '@prisma/client'
+import prismaClient from './db.js';
 
 class MermaidDb {
     static instance;
-    db;
+    db = prismaClient;
 
     constructor() {
-        this.db = new PrismaClient()
     }
 
     static getInstance() {

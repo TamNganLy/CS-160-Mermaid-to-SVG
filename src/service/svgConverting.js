@@ -5,7 +5,7 @@ import path from "path";
 const getTempOutputFilePath = (articleId) => {
   const currentFilePath = fileURLToPath(import.meta.url);
   const currentFolder = path.dirname(currentFilePath);
-  const tempStoragePath = path.resolve(currentFolder, '../resources');
+  const tempStoragePath = path.resolve(currentFolder, '../../src/resources');
   return path.join(tempStoragePath, articleId + ".svg");
 }
 

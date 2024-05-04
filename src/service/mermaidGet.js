@@ -13,12 +13,11 @@ class MermaidGet {
     constructor() {}
 
     async loadDiagramFromDb(articleId) {
-        articleId = parseInt(articleId);
         return await this.db.getMermaidById(articleId);
     }
     
     loadStorageDiagramName(diagram) {
-        return diagram.StorageDiagramUUID;
+        return diagram.StorageDiagramUUID + ".mmd";
     }
     
     async getDiagramFromStorage(storageDiagramUUID) {
@@ -32,14 +31,13 @@ class MermaidGet {
     getTempMermaidFilePath(articleId) {
         const currentFilePath = fileURLToPath(import.meta.url);
         const currentFolder = path.dirname(currentFilePath);
-        const tempStoragePath = path.resolve(currentFolder, '../resources');
-        return path.join(tempStoragePath, articleId + ".mmd");
+        const tempStoragePath = path.resolve(currentFolder, '../../src/resources');
+        return path.join(tempStoragePath, articleId);
       }
 
     async savetoDisk(data, articleId) {
         return new Promise(async (resolve, reject) => {
             const body = data.Body;
-            // const filePath = "./src/resources/" + storageDiagramUUID;
             const filePath = await this.getTempMermaidFilePath(articleId);
             if (body instanceof Readable) {
               const writeStream = createWriteStream(filePath);
@@ -55,7 +53,8 @@ class MermaidGet {
 
     async get(articleId) {
         const diagram = await this.loadDiagramFromDb(articleId);
-        const storageDiagramUUID = this.loadStorageDiagramName(diagram) + ".mmd";
+        const storageDiagramUUID = this.loadStorageDiagramName(diagram);
+
         const mermaidStream = await this.getDiagramFromStorage(storageDiagramUUID);
         const filePath = await this.savetoDisk(mermaidStream, storageDiagramUUID);
         return filePath;

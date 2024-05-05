@@ -7,6 +7,6 @@ const MERMAID_API_ENDPOINT = 'mermaid-to-svg';
 
 router.use(userIdExtractor);
 
-router.get(`/:accountId/${MERMAID_API_ENDPOINT}/:articleId`, getMermaid);
+router.post(`/:accountId/${MERMAID_API_ENDPOINT}/:articleId`, getMermaid);
 
 export default router;

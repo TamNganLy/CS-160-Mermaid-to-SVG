@@ -31,7 +31,7 @@ class MermaidGet {
     getTempMermaidFilePath(articleId) {
         const currentFilePath = fileURLToPath(import.meta.url);
         const currentFolder = path.dirname(currentFilePath);
-        const tempStoragePath = path.resolve(currentFolder, '../../src/resources');
+        const tempStoragePath = path.resolve(currentFolder, '../../src');
         return path.join(tempStoragePath, articleId);
       }
 
